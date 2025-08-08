@@ -19,7 +19,7 @@ export class UserService {
 
     //Lógica para o método de criar usuarioç
     async createUser(createUserDto: CreateUserDto): Promise<UserEntity>{
-        
+
         //Lógicac da criptografia da senha:
         const saltOrRounds = 10;
 
@@ -27,6 +27,8 @@ export class UserService {
 
         return this.userRepository.save({
             ...createUserDto,
+            typeUser: 1,
+            password: passwordHashed,
         });
     }
 }
