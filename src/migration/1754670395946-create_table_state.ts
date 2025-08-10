@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 export class CreateTableState1754670395946 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`
+        await queryRunner.query(`
             CREATE TABLE IF NOT EXISTS public.state (
                 id integer NOT NULL,
                 name character varying NOT NULL,
@@ -12,7 +12,7 @@ export class CreateTableState1754670395946 implements MigrationInterface {
                 primary key (id)
             );
 
-            CREATE SEQUENCE IT NOT EXISTS public.state_id_seq
+            CREATE SEQUENCE IF NOT EXISTS public.state_id_seq
                 AS integer
                 START WITH 1
                 INCREMENT BY 1

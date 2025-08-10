@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner } from "typeorm";
 export class CreateTableCity1754671452763 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
-        queryRunner.query(`
+        await queryRunner.query(`
             CREATE TABLE IF NOT EXISTS public.city (
                 id integer NOT NULL,
                 state_id integer NOT NULL,
