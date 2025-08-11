@@ -13,7 +13,7 @@ export class UserController {
     //Método para buscar todos os usuários
     @Get()
     async getAllUsers(): Promise<ReturnUserDto[]> {
-        return (await this.userService.getAllUser()).map((userEntity) =>
+        return (await this.userService.getAllUser()).map((userEntity) => 
             new ReturnUserDto(userEntity));
     }
 
