@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import type { CreateUserDto } from './dtos/createUser.dto';
 import { UserService } from './user.service';
 import { UserEntity } from './entities/user.entity';
@@ -22,6 +22,17 @@ export class UserController {
     @Post()
     async createUser(@Body() createUser: CreateUserDto): Promise<UserEntity> {
         return this.userService.createUser(createUser);
+    }
+
+    @Get('/:userId')
+    async getUserById(@Param('userId') userId: number): Promise<ReturnUserDto> {
+        const user = await this.userService.getUserByIdUsingRelations(userId);
+
+        if(!user) {
+            throw new NotFoundException(`Usuario ${userId} não encontrado`)
+        }
+
+        return new ReturnUserDto(user);
     }
 
 }
