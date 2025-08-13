@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadGatewayException, BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dtos/createUser.dto';
 import { UserEntity } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
@@ -19,6 +19,12 @@ export class UserService {
 
     //Lógica para o método de criar usuarioç
     async createUser(createUserDto: CreateUserDto): Promise<UserEntity>{
+        const user = await this.findUserByEmail(createUserDto.email).catch(() => undefined);
+
+        if (user) {
+            throw new BadGatewayException(`Email registred in system`);
+        }
+
 
         //Lógicac da criptografia da senha:
         const saltOrRounds = 10;
